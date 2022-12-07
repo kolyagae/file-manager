@@ -1,0 +1,24 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "This repository was created to complete the File-manger task from RS School",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "kolyagae": "node index.js  --username=kolyagae"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolyagae/file-manager.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "kolyagae",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kolyagae/file-manager/issues"
+  },
+  "homepage": "https://github.com/kolyagae/file-manager#readme"
+}
