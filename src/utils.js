@@ -1,13 +1,19 @@
-const showGreetMessage = (userName) => {
-  console.log(`Welcome to the File Manager, ${userName}!`);
+export const printGreetMessage = (userName) => {
+  const greetText = `Welcome to the File Manager, ${userName}!`;
+  console.log(greetText);
 };
 
-const showGoodbyeMessage = (userName) => {
-  console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
+export const printGoodbyeMessage = (userName) => {
+  const goodbyeText = `Thank you for using File Manager, ${userName}, goodbye!`;
+  console.log(goodbyeText);
 };
 
-const showErrorMessage = () => {
-  console.error(`Sorry this command is not available`);
+export const printStartAppErrorMessage = () => {
+  const errorText = "Sorry this command is not available";
+  console.error(errorText);
 };
 
-export { showGreetMessage, showGoodbyeMessage, showErrorMessage };
+export const printInvalidInputErrorMessage = () => {
+  const errorText = "Invalid input";
+  console.error(errorText);
+};
