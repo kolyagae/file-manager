@@ -1,4 +1,4 @@
-import { printStartAppErrorMessage } from "./src/utils.js";
+import * as print from "./src/utils.js";
 import { startReadLine } from "./src/readLine.js";
 
 const startApp = () => {
@@ -12,7 +12,7 @@ const startApp = () => {
   ) {
     startReadLine();
   } else {
-    printStartAppErrorMessage();
+    print.startAppErrorMessage();
   }
 };
 

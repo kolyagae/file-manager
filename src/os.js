@@ -1,4 +1,5 @@
-import * as os from "node:os";
+import os from "node:os";
+import * as print from "./utils.js";
 
 export const printHomeDir = () => {
   const homeDir = os.homedir();
@@ -26,4 +27,26 @@ export const printUserName = () => {
 export const printCpuArchitecture = () => {
   const arch = os.arch();
   console.log(arch);
+};
+
+export const osOperationHandler = (flag) => {
+  switch (flag) {
+    case "--EOL":
+      printOsEOL();
+      break;
+    case "--cpus":
+      printCpusInfo();
+      break;
+    case "--homedir":
+      printHomeDir();
+      break;
+    case "--username":
+      printUserName();
+      break;
+    case "--architecture":
+      printCpuArchitecture();
+      break;
+    default:
+      print.invalidInputErrorMessage();
+  }
 };

@@ -1,21 +1,21 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import {
-  printGreetMessage,
-  printGoodbyeMessage,
-  printInvalidInputErrorMessage,
-} from "./utils.js";
-import * as currentOS from "./os.js";
+import * as print from "./utils.js";
+import { osOperationHandler } from "./os.js";
+import { goUpDirectory, goHomeDirectory } from "./navigation.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
-  printGreetMessage(userName);
+  goHomeDirectory();
+  print.greetMessage(userName);
+  print.currentPath();
   const rl = readline.createInterface({ input, output });
 
   rl.on("line", (input) => {
-    switch (input) {
+    const operation = input.split(" ")[0];
+    switch (operation) {
       case "up":
-        console.log("up!");
+        goUpDirectory();
         break;
       case "cd":
         console.log("cd!");
@@ -41,20 +41,9 @@ export const startReadLine = () => {
       case "rm":
         console.log("rm!");
         break;
-      case "os --EOL":
-        currentOS.printOsEOL();
-        break;
-      case "os --cpus":
-        currentOS.printCpusInfo();
-        break;
-      case "os --homedir":
-        currentOS.printHomeDir();
-        break;
-      case "os --username":
-        currentOS.printUserName();
-        break;
-      case "os --architecture":
-        currentOS.printCpuArchitecture();
+      case "os":
+        const flag = input.split(" ")[1];
+        osOperationHandler(flag);
         break;
       case "hash":
         console.log("hash!");
@@ -66,16 +55,17 @@ export const startReadLine = () => {
         console.log("decompress!");
         break;
       case ".exit":
-        printGoodbyeMessage(userName);
+        print.goodbyeMessage(userName);
         rl.close();
         break;
       default:
-        printInvalidInputErrorMessage();
+        print.invalidInputErrorMessage();
     }
+    print.currentPath();
   });
 
   rl.on("SIGINT", () => {
-    printGoodbyeMessage(userName);
+    print.goodbyeMessage(userName);
     rl.close();
   });
 };
