@@ -17,7 +17,7 @@ export const startReadLine = () => {
       case "up":
       case "cd":
       case "ls":
-        fsOperationHandler(operation);
+        fsOperationHandler(input);
         break;
       case "cat":
         console.log("cat!");

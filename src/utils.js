@@ -18,6 +18,11 @@ const printInvalidInputErrorMessage = () => {
   console.error(errorText);
 };
 
+const printOperationErrorMessage = () => {
+  const errorText = "Operation failed";
+  console.error(errorText);
+};
+
 const printCurrentPath = () => {
   console.log(`You are currently in ${process.cwd()}`);
 };
@@ -28,4 +33,5 @@ export {
   printStartAppErrorMessage as startAppErrorMessage,
   printInvalidInputErrorMessage as invalidInputErrorMessage,
   printCurrentPath as currentPath,
+  printOperationErrorMessage as operationErrorMessage,
 };

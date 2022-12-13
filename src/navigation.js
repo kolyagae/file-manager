@@ -1,5 +1,5 @@
 import * as print from "./utils.js";
-import path from "node:path";
+import { sep, isAbsolute, resolve } from "node:path";
 import { homedir } from "node:os";
 import { readdir } from "node:fs/promises";
 
@@ -9,8 +9,7 @@ export const goHomeDirectory = () => {
 
 const goUpDirectory = () => {
   const currentPath = process.cwd();
-  const newPath =
-    currentPath.split(path.sep).slice(0, -1).join(path.sep) + path.sep;
+  const newPath = currentPath.split(sep).slice(0, -1).join(sep) + sep;
   process.chdir(newPath);
 };
 
@@ -48,14 +47,34 @@ const printDirectoryContent = async () => {
   }
 };
 
-export const fsOperationHandler = async (operation) => {
-  const operationName = operation.split(" ")[0];
-  switch (operationName) {
+const generateNewPath = (path) => {
+  if (!path) {
+    print.invalidInputErrorMessage();
+    return;
+  }
+  path = path + sep;
+  const newPath = isAbsolute(path) ? path : resolve(process.cwd(), path);
+  return newPath;
+};
+
+const changeDirectory = (newPath) => {
+  try {
+    process.chdir(newPath);
+  } catch {
+    print.operationErrorMessage();
+  }
+};
+
+export const fsOperationHandler = async (input) => {
+  const operation = input.split(" ")[0];
+  switch (operation) {
     case "up":
       goUpDirectory();
       break;
     case "cd":
-      console.log("cd!");
+      const path = input.split(" ").slice(1).join(" ").replace(/["']/g, "");
+      const newPath = generateNewPath(path);
+      changeDirectory(newPath);
       break;
     case "ls":
       await printDirectoryContent();
