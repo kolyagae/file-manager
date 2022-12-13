@@ -1,5 +1,5 @@
 import os from "node:os";
-import * as print from "./utils.js";
+import { printInvalidInputErrorMessage } from "./utils.js";
 
 const printHomeDir = () => {
   const homeDir = os.homedir();
@@ -47,7 +47,6 @@ export const osOperationHandler = (flag) => {
       printCpuArchitecture();
       break;
     default:
-      print.invalidInputErrorMessage();
+      printInvalidInputErrorMessage();
   }
-  print.currentPath();
 };

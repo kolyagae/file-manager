@@ -1,23 +1,31 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import * as print from "./utils.js";
+import {
+  printGreetMessage,
+  printCurrentPath,
+  printInvalidInputErrorMessage,
+  printGoodbyeMessage,
+} from "./utils.js";
 import { osOperationHandler } from "./os.js";
-import { fsOperationHandler, goHomeDirectory } from "./navigation.js";
+import { navOperationHandler, goHomeDirectory } from "./navigation.js";
+import { printDirectoryContent } from "./ls.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
   goHomeDirectory();
-  print.greetMessage(userName);
-  print.currentPath();
+  printGreetMessage(userName);
+  printCurrentPath();
   const rl = readline.createInterface({ input, output });
 
-  rl.on("line", (input) => {
+  rl.on("line", async (input) => {
     const operation = input.split(" ")[0];
     switch (operation) {
       case "up":
       case "cd":
+        navOperationHandler(input);
+        break;
       case "ls":
-        fsOperationHandler(input);
+        await printDirectoryContent();
         break;
       case "cat":
         console.log("cat!");
@@ -51,16 +59,17 @@ export const startReadLine = () => {
         console.log("decompress!");
         break;
       case ".exit":
-        print.goodbyeMessage(userName);
+        printGoodbyeMessage(userName);
         rl.close();
         break;
       default:
-        print.invalidInputErrorMessage();
+        printInvalidInputErrorMessage();
     }
+    printCurrentPath();
   });
 
   rl.on("SIGINT", () => {
-    print.goodbyeMessage(userName);
+    printGoodbyeMessage(userName);
     rl.close();
   });
 };
