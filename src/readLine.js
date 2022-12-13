@@ -2,7 +2,7 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import * as print from "./utils.js";
 import { osOperationHandler } from "./os.js";
-import { goUpDirectory, goHomeDirectory } from "./navigation.js";
+import { fsOperationHandler, goHomeDirectory } from "./navigation.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -15,13 +15,9 @@ export const startReadLine = () => {
     const operation = input.split(" ")[0];
     switch (operation) {
       case "up":
-        goUpDirectory();
-        break;
       case "cd":
-        console.log("cd!");
-        break;
       case "ls":
-        console.log("ls!");
+        fsOperationHandler(operation);
         break;
       case "cat":
         console.log("cat!");
@@ -61,7 +57,6 @@ export const startReadLine = () => {
       default:
         print.invalidInputErrorMessage();
     }
-    print.currentPath();
   });
 
   rl.on("SIGINT", () => {

@@ -1,17 +1,17 @@
 import os from "node:os";
 import * as print from "./utils.js";
 
-export const printHomeDir = () => {
+const printHomeDir = () => {
   const homeDir = os.homedir();
   console.log(homeDir);
 };
 
-export const printOsEOL = () => {
+const printOsEOL = () => {
   const osEOL = JSON.stringify(os.EOL);
   console.log(osEOL);
 };
 
-export const printCpusInfo = () => {
+const printCpusInfo = () => {
   const cpus = os.cpus();
   const cpusInfo = cpus.map(
     (el) => (el = { model: el.model, speed: el.speed })
@@ -19,12 +19,12 @@ export const printCpusInfo = () => {
   console.log(cpusInfo);
 };
 
-export const printUserName = () => {
+const printUserName = () => {
   const userName = os.userInfo().username;
   console.log(userName);
 };
 
-export const printCpuArchitecture = () => {
+const printCpuArchitecture = () => {
   const arch = os.arch();
   console.log(arch);
 };
@@ -49,4 +49,5 @@ export const osOperationHandler = (flag) => {
     default:
       print.invalidInputErrorMessage();
   }
+  print.currentPath();
 };
