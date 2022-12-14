@@ -1,21 +1,22 @@
 import { rm } from "node:fs/promises";
-import { generatePath } from "./navigation.js";
 import {
+  generatePath,
+  getPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "./utils.js";
 
 export const removeFile = async (data) => {
-  const path = data.split(" ").slice(1).join();
-  const newPath = generatePath(path);
+  const path = getPath(data);
+  const filePath = generatePath(path);
 
-  if (!newPath) {
+  if (!filePath) {
     printInvalidInputErrorMessage();
     return;
   }
 
   try {
-    await rm(newPath);
+    await rm(filePath);
   } catch {
     printOperationErrorMessage();
   }

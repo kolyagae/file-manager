@@ -1,3 +1,5 @@
+import { sep, isAbsolute, resolve } from "node:path";
+
 export const printGreetMessage = (userName) => {
   const greetText = `Welcome to the File Manager, ${userName}!`;
   console.log(greetText);
@@ -29,4 +31,15 @@ export const printCurrentPath = () => {
 
 export const getPath = (data) => {
   return data.split(" ").slice(1).join(" ").replace(/["']/g, "").trim();
+};
+
+export const generatePath = (path) => {
+  if (!path) {
+    return;
+  }
+
+  path = path + sep;
+  const newPath = isAbsolute(path) ? path : resolve(process.cwd(), path);
+
+  return newPath;
 };

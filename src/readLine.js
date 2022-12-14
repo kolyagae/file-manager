@@ -14,6 +14,7 @@ import { printFileContent } from "./cat.js";
 import { createNewFile } from "./add.js";
 import { renameFile } from "./rename.js";
 import { removeFile } from "./remove.js";
+import { printHash } from "./hash.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -34,8 +35,7 @@ export const startReadLine = () => {
         printCurrentPath();
         break;
       case "cat":
-        const filePath = getPath(input);
-        await printFileContent(filePath);
+        await printFileContent(input);
         break;
       case "add":
         const fileName = getPath(input);
@@ -61,7 +61,9 @@ export const startReadLine = () => {
         osOperationHandler(flag);
         break;
       case "hash":
-        console.log("hash!");
+        await printHash(input);
+        printCurrentPath();
+        // console.log("hash!");
         break;
       case "compress":
         console.log("compress!");
