@@ -42,7 +42,8 @@ export const startReadLine = () => {
         printCurrentPath();
         break;
       case "rn":
-        renameFile(input);
+        await renameFile(input);
+        printCurrentPath();
         break;
       case "cp":
         console.log("cp!");

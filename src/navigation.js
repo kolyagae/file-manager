@@ -17,9 +17,8 @@ const goUpDirectory = () => {
   process.chdir(newPath);
 };
 
-const generateNewPath = (path) => {
+const generatePath = (path) => {
   if (!path) {
-    printInvalidInputErrorMessage();
     return;
   }
   path = path + sep;
@@ -27,7 +26,14 @@ const generateNewPath = (path) => {
   return newPath;
 };
 
-const changeDirectory = (newPath) => {
+const changeDirectory = (dirPath) => {
+  const newPath = generatePath(dirPath);
+
+  if (!newPath) {
+    printInvalidInputErrorMessage();
+    return;
+  }
+
   try {
     process.chdir(newPath);
   } catch {
@@ -43,8 +49,7 @@ export const navOperationHandler = async (input) => {
       break;
     case "cd":
       const dirPath = getPath(input);
-      const newPath = generateNewPath(dirPath);
-      changeDirectory(newPath);
+      changeDirectory(dirPath);
       break;
     default:
       printInvalidInputErrorMessage();
