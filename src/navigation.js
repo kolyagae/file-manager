@@ -17,7 +17,7 @@ const goUpDirectory = () => {
   process.chdir(newPath);
 };
 
-const generatePath = (path) => {
+export const generatePath = (path) => {
   if (!path) {
     return;
   }

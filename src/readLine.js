@@ -13,6 +13,7 @@ import { printDirectoryContent } from "./ls.js";
 import { printFileContent } from "./cat.js";
 import { createNewFile } from "./add.js";
 import { renameFile } from "./rename.js";
+import { removeFile } from "./remove.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -52,7 +53,8 @@ export const startReadLine = () => {
         console.log("mv!");
         break;
       case "rm":
-        console.log("rm!");
+        await removeFile(input);
+        printCurrentPath();
         break;
       case "os":
         const flag = input.split(" ")[1];
