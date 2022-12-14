@@ -5,10 +5,12 @@ import {
   printCurrentPath,
   printInvalidInputErrorMessage,
   printGoodbyeMessage,
+  getPath,
 } from "./utils.js";
 import { osOperationHandler } from "./os.js";
 import { navOperationHandler, goHomeDirectory } from "./navigation.js";
 import { printDirectoryContent } from "./ls.js";
+import { printFileContent } from "./cat.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -26,9 +28,11 @@ export const startReadLine = () => {
         break;
       case "ls":
         await printDirectoryContent();
+        printCurrentPath();
         break;
       case "cat":
-        console.log("cat!");
+        const filePath = getPath(input);
+        await printFileContent(filePath);
         break;
       case "add":
         console.log("add!");
@@ -65,7 +69,6 @@ export const startReadLine = () => {
       default:
         printInvalidInputErrorMessage();
     }
-    printCurrentPath();
   });
 
   rl.on("SIGINT", () => {

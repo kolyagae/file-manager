@@ -49,4 +49,5 @@ export const osOperationHandler = (flag) => {
     default:
       printInvalidInputErrorMessage();
   }
+  printCurrentPath();
 };

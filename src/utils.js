@@ -26,3 +26,7 @@ export const printOperationErrorMessage = () => {
 export const printCurrentPath = () => {
   console.log(`You are currently in ${process.cwd()}`);
 };
+
+export const getPath = (data) => {
+  return data.split(" ").slice(1).join(" ").replace(/["']/g, "").trim();
+};

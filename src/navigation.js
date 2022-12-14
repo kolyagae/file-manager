@@ -1,4 +1,6 @@
 import {
+  getPath,
+  printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "./utils.js";
@@ -13,10 +15,6 @@ const goUpDirectory = () => {
   const currentPath = process.cwd();
   const newPath = currentPath.split(sep).slice(0, -1).join(sep) + sep;
   process.chdir(newPath);
-};
-
-const getPath = (data) => {
-  return data.split(" ").slice(1).join(" ").replace(/["']/g, "").trim();
 };
 
 const generateNewPath = (path) => {
@@ -44,11 +42,12 @@ export const navOperationHandler = async (input) => {
       goUpDirectory();
       break;
     case "cd":
-      const path = getPath(input);
-      const newPath = generateNewPath(path);
+      const dirPath = getPath(input);
+      const newPath = generateNewPath(dirPath);
       changeDirectory(newPath);
       break;
     default:
       printInvalidInputErrorMessage();
   }
+  printCurrentPath();
 };
