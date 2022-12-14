@@ -12,6 +12,7 @@ import { navOperationHandler, goHomeDirectory } from "./navigation.js";
 import { printDirectoryContent } from "./ls.js";
 import { printFileContent } from "./cat.js";
 import { createNewFile } from "./add.js";
+import { renameFile } from "./rename.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -41,7 +42,7 @@ export const startReadLine = () => {
         printCurrentPath();
         break;
       case "rn":
-        console.log("rn!");
+        renameFile(input);
         break;
       case "cp":
         console.log("cp!");
