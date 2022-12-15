@@ -15,6 +15,7 @@ import { createNewFile } from "./add.js";
 import { renameFile } from "./rename.js";
 import { removeFile } from "./remove.js";
 import { printHash } from "./hash.js";
+import { copyFile } from "./copy.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -47,7 +48,8 @@ export const startReadLine = () => {
         printCurrentPath();
         break;
       case "cp":
-        console.log("cp!");
+        copyFile(input);
+        printCurrentPath();
         break;
       case "mv":
         console.log("mv!");
@@ -63,7 +65,6 @@ export const startReadLine = () => {
       case "hash":
         await printHash(input);
         printCurrentPath();
-        // console.log("hash!");
         break;
       case "compress":
         console.log("compress!");

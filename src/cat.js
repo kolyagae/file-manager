@@ -1,16 +1,15 @@
 import { createReadStream } from "node:fs";
 import {
   generatePath,
+  getPath,
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "./utils.js";
 
 export const printFileContent = async (data) => {
-  const path = data.split(" ").slice(1).join(" ");
-  console.log(path);
+  const path = getPath(data);
   const newPath = generatePath(path);
-  console.log(newPath);
 
   if (!newPath) {
     printInvalidInputErrorMessage();
