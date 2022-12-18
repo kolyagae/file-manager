@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream, existsSync } from "node:fs";
+import { createReadStream, createWriteStream } from "node:fs";
 import { basename, dirname, isAbsolute, resolve, sep } from "node:path";
 import {
   generatePath,
@@ -21,14 +21,19 @@ export const copyFile = async (data) => {
   const pathToCopy = isAbsolute(paths[1] + sep)
     ? resolve(paths[1] + sep, fileName)
     : resolve(dirPath, paths[1] + sep, fileName);
+  const existFile = await checkExist(pathToFile);
+  const existDir = await checkExist(dirname(pathToCopy));
 
-  if (existsSync(pathToFile) && existsSync(dirname(pathToCopy))) {
+  if (existFile && existDir) {
     const readFile = createReadStream(pathToFile);
     const writeFile = createWriteStream(pathToCopy, { flags: "wx" });
 
-    readFile
-      .on("error", () => printOperationErrorMessage())
-      .pipe(writeFile.on("error", () => printOperationErrorMessage()));
+    readFile.pipe(
+      writeFile.on("error", () => {
+        readFile.close();
+        printOperationErrorMessage();
+      })
+    );
 
     return;
   }

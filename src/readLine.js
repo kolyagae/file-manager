@@ -17,6 +17,7 @@ import { removeFile } from "./remove.js";
 import { printHash } from "./hash.js";
 import { copyFile } from "./copy.js";
 import { moveFile } from "./move.js";
+import { doBrotliCompress } from "./compress.js";
 
 export const startReadLine = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -69,7 +70,8 @@ export const startReadLine = () => {
         printCurrentPath();
         break;
       case "compress":
-        console.log("compress!");
+        await doBrotliCompress(input);
+        printCurrentPath();
         break;
       case "decompress":
         console.log("decompress!");
@@ -80,6 +82,7 @@ export const startReadLine = () => {
         break;
       default:
         printInvalidInputErrorMessage();
+        printCurrentPath();
     }
   });
 

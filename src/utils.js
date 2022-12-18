@@ -1,3 +1,4 @@
+import { access } from "node:fs/promises";
 import { sep, isAbsolute, resolve, normalize } from "node:path";
 
 export const printGreetMessage = (userName) => {
@@ -29,6 +30,15 @@ export const printCurrentPath = () => {
   console.log(`You are currently in ${process.cwd()}`);
 };
 
+export const checkExist = async (path) => {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const getPath = (data) => {
   return data.split(" ").slice(1).join(" ").replace(/["']/g, "").trim();
 };
@@ -39,7 +49,6 @@ export const generatePath = (data) => {
   }
 
   const path = data + sep;
-  // const newPath = isAbsolute(path) ? path : resolve(process.cwd(), path);
   const newPath = isAbsolute(path)
     ? normalize(path)
     : resolve(process.cwd(), path);
