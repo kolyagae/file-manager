@@ -21,6 +21,7 @@ import { printHash } from "./operations/hash.js";
 import { copyFile } from "./operations/copy.js";
 import { moveFile } from "./operations/move.js";
 import { doBrotliCompress } from "./operations/compress.js";
+import { doBrotliDecompress } from "./operations/decompress.js";
 
 export const startOperationsHandler = () => {
   const userName = process.argv.slice(2)[0].slice(11);
@@ -77,7 +78,8 @@ export const startOperationsHandler = () => {
         printCurrentPath();
         break;
       case "decompress":
-        console.log("decompress!");
+        await doBrotliDecompress(input);
+        printCurrentPath();
         break;
       case ".exit":
         printGoodbyeMessage(userName);
