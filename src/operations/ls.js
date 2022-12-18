@@ -1,4 +1,4 @@
-import { printOperationErrorMessage } from "./utils.js";
+import { printOperationErrorMessage } from "../utils/utils.js";
 import { readdir } from "node:fs/promises";
 
 const readCurrentDirectory = async () => {

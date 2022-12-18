@@ -5,7 +5,7 @@ import {
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 export const printFileContent = async (data) => {
   const path = getPath(data);

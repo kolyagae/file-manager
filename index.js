@@ -1,5 +1,5 @@
-import { printStartAppErrorMessage } from "./src/utils.js";
-import { startReadLine } from "./src/readLine.js";
+import { startOperationsHandler } from "./src/operationsHandler.js";
+import { printStartAppErrorMessage } from "./src/utils/utils.js";
 
 const startApp = () => {
   const propertyName = "--username=";
@@ -10,7 +10,7 @@ const startApp = () => {
     cliArgs[0].startsWith(propertyName) &&
     cliArgs[0].length > 11
   ) {
-    startReadLine();
+    startOperationsHandler();
   } else {
     printStartAppErrorMessage();
   }

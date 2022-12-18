@@ -4,7 +4,7 @@ import {
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 import { sep } from "node:path";
 import { homedir } from "node:os";
 

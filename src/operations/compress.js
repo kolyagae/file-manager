@@ -5,7 +5,7 @@ import {
   checkExist,
   generatePath,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 import { basename, dirname, isAbsolute, resolve, sep } from "node:path";
 
 export const doBrotliCompress = async (data) => {

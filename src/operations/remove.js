@@ -4,7 +4,7 @@ import {
   getPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 export const removeFile = async (data) => {
   const path = getPath(data);

@@ -3,7 +3,7 @@ import { dirname, isAbsolute, normalize, resolve, sep } from "node:path";
 import {
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 export const renameFile = async (data) => {
   const paths = data.split(" ").slice(1);

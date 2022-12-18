@@ -5,7 +5,7 @@ import {
   getPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 const readFileContent = async (filePath) => {
   try {

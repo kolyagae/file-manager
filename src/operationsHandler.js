@@ -6,20 +6,23 @@ import {
   printInvalidInputErrorMessage,
   printGoodbyeMessage,
   getPath,
-} from "./utils.js";
-import { osOperationHandler } from "./os.js";
-import { navOperationHandler, goHomeDirectory } from "./navigation.js";
-import { printDirectoryContent } from "./ls.js";
-import { printFileContent } from "./cat.js";
-import { createNewFile } from "./add.js";
-import { renameFile } from "./rename.js";
-import { removeFile } from "./remove.js";
-import { printHash } from "./hash.js";
-import { copyFile } from "./copy.js";
-import { moveFile } from "./move.js";
-import { doBrotliCompress } from "./compress.js";
+} from "./utils/utils.js";
+import { osOperationHandler } from "./operations/os.js";
+import {
+  navOperationHandler,
+  goHomeDirectory,
+} from "./operations/navigation.js";
+import { printDirectoryContent } from "./operations/ls.js";
+import { printFileContent } from "./operations/cat.js";
+import { createNewFile } from "./operations/add.js";
+import { renameFile } from "./operations/rename.js";
+import { removeFile } from "./operations/remove.js";
+import { printHash } from "./operations/hash.js";
+import { copyFile } from "./operations/copy.js";
+import { moveFile } from "./operations/move.js";
+import { doBrotliCompress } from "./operations/compress.js";
 
-export const startReadLine = () => {
+export const startOperationsHandler = () => {
   const userName = process.argv.slice(2)[0].slice(11);
   goHomeDirectory();
   printGreetMessage(userName);

@@ -4,7 +4,7 @@ import { sep } from "node:path";
 import {
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 export const createNewFile = async (fileName) => {
   if (!fileName) {

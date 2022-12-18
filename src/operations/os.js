@@ -1,5 +1,5 @@
 import os from "node:os";
-import { printInvalidInputErrorMessage } from "./utils.js";
+import { printInvalidInputErrorMessage } from "../utils/utils.js";
 
 const printHomeDir = () => {
   const homeDir = os.homedir();

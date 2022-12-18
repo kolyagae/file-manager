@@ -7,7 +7,7 @@ import {
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
-} from "./utils.js";
+} from "../utils/utils.js";
 
 export const moveFile = async (data) => {
   const paths = data.split(" ").slice(1);
