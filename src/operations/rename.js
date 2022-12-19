@@ -1,27 +1,25 @@
 import { rename } from "node:fs/promises";
 import { dirname, isAbsolute, normalize, resolve, sep } from "node:path";
 import {
+  getPaths,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
 
 export const renameFile = async (data) => {
-  const paths = data.split(" ").slice(1);
-  const pathsAmount = paths.length;
+  const [pathToFile, newFileName, ...others] = getPaths(data);
 
-  if (pathsAmount !== 2) {
+  if (!pathToFile || !newFileName || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
   try {
-    const oldPath = paths[0];
-    // const dirPath = parse(oldPath).dir + sep;
-    const dirPath = dirname(oldPath) + sep;
-    const newPath = isAbsolute(oldPath)
-      ? resolve(dirPath, paths[1])
-      : normalize(paths[1]);
-    await rename(oldPath, newPath);
+    const dirPath = dirname(pathToFile) + sep;
+    const newPath = isAbsolute(pathToFile)
+      ? resolve(dirPath, newFileName)
+      : normalize(newFileName);
+    await rename(pathToFile, newPath);
   } catch {
     printOperationErrorMessage();
   }

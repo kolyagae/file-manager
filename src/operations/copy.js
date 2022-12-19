@@ -1,26 +1,27 @@
 import { createReadStream, createWriteStream } from "node:fs";
 import { basename, dirname, isAbsolute, resolve, sep } from "node:path";
 import {
+  checkExist,
   generatePath,
+  getPaths,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
 
 export const copyFile = async (data) => {
-  const paths = data.split(" ").slice(1);
-  const pathsAmount = paths.length;
+  const [pathFile, pathToNewDir, ...others] = getPaths(data);
 
-  if (pathsAmount !== 2) {
+  if (!pathFile || !pathToNewDir || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
-  const pathToFile = generatePath(paths[0]);
+  const pathToFile = generatePath(pathFile);
   const fileName = basename(pathToFile);
   const dirPath = dirname(pathToFile) + sep;
-  const pathToCopy = isAbsolute(paths[1] + sep)
-    ? resolve(paths[1] + sep, fileName)
-    : resolve(dirPath, paths[1] + sep, fileName);
+  const pathToCopy = isAbsolute(pathToNewDir + sep)
+    ? resolve(pathToNewDir + sep, fileName)
+    : resolve(dirPath, pathToNewDir + sep, fileName);
   const existFile = await checkExist(pathToFile);
   const existDir = await checkExist(dirname(pathToCopy));
 

@@ -1,4 +1,8 @@
-import { printOperationErrorMessage } from "../utils/utils.js";
+import {
+  getPaths,
+  printInvalidInputErrorMessage,
+  printOperationErrorMessage,
+} from "../utils/utils.js";
 import { readdir } from "node:fs/promises";
 
 const readCurrentDirectory = async () => {
@@ -26,7 +30,14 @@ const sortDirectoryContent = async () => {
   }
 };
 
-export const printDirectoryContent = async () => {
+export const printDirectoryContent = async (data) => {
+  const paths = getPaths(data);
+
+  if (paths.length) {
+    printInvalidInputErrorMessage();
+    return;
+  }
+
   try {
     const dirContent = await sortDirectoryContent();
     console.table(dirContent);

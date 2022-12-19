@@ -1,6 +1,6 @@
 import {
   generatePath,
-  getPath,
+  getPaths,
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
@@ -12,21 +12,29 @@ export const goHomeDirectory = () => {
   process.chdir(homedir());
 };
 
-const goUpDirectory = () => {
+const goUpDirectory = (data) => {
+  const paths = getPaths(data);
+
+  if (paths.length > 0) {
+    printInvalidInputErrorMessage();
+    return;
+  }
+
   const currentPath = process.cwd();
   const newPath = currentPath.split(sep).slice(0, -1).join(sep) + sep;
   process.chdir(newPath);
 };
 
 const changeDirectory = (dirPath) => {
-  const newPath = generatePath(dirPath);
+  const [path, ...others] = getPaths(dirPath);
 
-  if (!newPath) {
+  if (!path || others.length > 0) {
     printInvalidInputErrorMessage();
     return;
   }
 
   try {
+    const newPath = generatePath(path);
     process.chdir(newPath);
   } catch {
     printOperationErrorMessage();
@@ -35,13 +43,13 @@ const changeDirectory = (dirPath) => {
 
 export const navOperationHandler = async (input) => {
   const operation = input.split(" ")[0];
+
   switch (operation) {
     case "up":
-      goUpDirectory();
+      goUpDirectory(input);
       break;
     case "cd":
-      const dirPath = getPath(input);
-      changeDirectory(dirPath);
+      changeDirectory(input);
       break;
     default:
       printInvalidInputErrorMessage();

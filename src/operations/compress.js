@@ -5,24 +5,25 @@ import {
   checkExist,
   generatePath,
   printOperationErrorMessage,
+  printInvalidInputErrorMessage,
+  getPaths,
 } from "../utils/utils.js";
 import { basename, dirname, isAbsolute, resolve, sep } from "node:path";
 
 export const doBrotliCompress = async (data) => {
-  const paths = data.split(" ").slice(1);
-  const pathsAmount = paths.length;
+  const [pathFile, pathDestination, ...others] = getPaths(data);
 
-  if (pathsAmount !== 2) {
+  if (!pathFile || !pathDestination || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
-  const pathToFile = generatePath(paths[0]);
+  const pathToFile = generatePath(pathFile);
   const fileName = basename(pathToFile);
   const dirPath = dirname(pathToFile) + sep;
-  const pathToDestination = isAbsolute(paths[1] + sep)
-    ? resolve(paths[1] + sep + fileName + ".br")
-    : resolve(dirPath, paths[1] + sep + fileName + ".br");
+  const pathToDestination = isAbsolute(pathDestination + sep)
+    ? resolve(pathDestination + sep + fileName + ".br")
+    : resolve(dirPath, pathDestination + sep + fileName + ".br");
   const existFile = await checkExist(pathToFile);
   const existPathToDestination = await checkExist(dirname(pathToDestination));
 

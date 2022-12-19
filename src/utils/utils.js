@@ -39,8 +39,28 @@ export const checkExist = async (path) => {
   }
 };
 
-export const getPath = (data) => {
-  return data.split(" ").slice(1).join(" ").replace(/["']/g, "").trim();
+export const getPaths = (str) => {
+  const splitStr = str.split(" ").slice(1);
+
+  if (str.includes("'")) {
+    const quotes = splitStr
+      .join(" ")
+      .split("")
+      .filter((el) => el === "'");
+    const isPairQuotes = quotes.length % 2 === 0;
+
+    if (isPairQuotes) {
+      return splitStr
+        .join(" ")
+        .split("'")
+        .filter((el) => el !== "" && el !== " ")
+        .map((el) => el.trim());
+    }
+
+    return splitStr;
+  }
+
+  return splitStr;
 };
 
 export const generatePath = (data) => {

@@ -1,13 +1,13 @@
 import { rm } from "node:fs/promises";
 import {
   generatePath,
-  getPath,
+  getPaths,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
 
 export const removeFile = async (data) => {
-  const path = getPath(data);
+  const path = getPaths(data);
   const filePath = generatePath(path);
 
   if (!filePath) {

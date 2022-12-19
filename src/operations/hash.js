@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import {
   generatePath,
-  getPath,
+  getPaths,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
@@ -23,16 +23,17 @@ const calculateHash = (contents) => {
 };
 
 export const printHash = async (data) => {
-  const path = getPath(data);
-  const filePath = generatePath(path);
+  const [pathFile, ...others] = getPaths(data);
 
-  if (!filePath) {
+  if (!pathFile || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
+  const pathToFile = generatePath(pathFile);
+
   try {
-    const content = await readFileContent(filePath);
+    const content = await readFileContent(pathToFile);
     const hash = calculateHash(content);
     console.log(hash);
   } catch {

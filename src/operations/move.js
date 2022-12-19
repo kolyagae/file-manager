@@ -4,32 +4,32 @@ import { basename, dirname, isAbsolute, resolve, sep } from "node:path";
 import {
   checkExist,
   generatePath,
+  getPaths,
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
 
 export const moveFile = async (data) => {
-  const paths = data.split(" ").slice(1);
-  const pathsAmount = paths.length;
+  const [pathFile, pathDestination, ...others] = getPaths(data);
 
-  if (pathsAmount !== 2) {
+  if (!pathFile || !pathDestination || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
-  const pathToFile = generatePath(paths[0]);
+  const pathToFile = generatePath(pathFile);
   const fileName = basename(pathToFile);
   const dirPath = dirname(pathToFile) + sep;
-  const pathToPaste = isAbsolute(paths[1] + sep)
-    ? resolve(paths[1] + sep, fileName)
-    : resolve(dirPath, paths[1] + sep, fileName);
+  const pathToDestination = isAbsolute(pathDestination + sep)
+    ? resolve(pathDestination + sep, fileName)
+    : resolve(dirPath, pathDestination + sep, fileName);
   const existFile = await checkExist(pathToFile);
-  const existDir = await checkExist(dirname(pathToPaste));
+  const existDir = await checkExist(dirname(pathToDestination));
 
   if (existFile && existDir) {
     const readFile = createReadStream(pathToFile);
-    const writeFile = createWriteStream(pathToPaste, { flags: "wx" });
+    const writeFile = createWriteStream(pathToDestination, { flags: "wx" });
 
     readFile.pipe(
       writeFile.on("error", () => {

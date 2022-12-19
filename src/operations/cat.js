@@ -1,21 +1,21 @@
 import { createReadStream } from "node:fs";
 import {
   generatePath,
-  getPath,
+  getPaths,
   printCurrentPath,
   printInvalidInputErrorMessage,
   printOperationErrorMessage,
 } from "../utils/utils.js";
 
 export const printFileContent = async (data) => {
-  const path = getPath(data);
-  const newPath = generatePath(path);
+  const [pathToFile, ...others] = getPaths(data);
 
-  if (!newPath) {
+  if (!pathToFile || others.length) {
     printInvalidInputErrorMessage();
     return;
   }
 
+  const newPath = generatePath(pathToFile);
   const reader = createReadStream(newPath, { encoding: "utf-8" });
 
   reader.on("data", (chunk) => console.log(chunk));
