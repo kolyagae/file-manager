@@ -1,5 +1,5 @@
 import { access } from "node:fs/promises";
-import { sep, isAbsolute, resolve, normalize } from "node:path";
+import { sep, isAbsolute, resolve } from "node:path";
 
 export const printGreetMessage = (userName) => {
   const greetText = `Welcome to the File Manager, ${userName}!`;
@@ -70,7 +70,7 @@ export const generatePath = (data) => {
 
   const path = data + sep;
   const newPath = isAbsolute(path)
-    ? normalize(path)
+    ? resolve(path)
     : resolve(process.cwd(), path);
 
   return newPath;
