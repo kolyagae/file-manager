@@ -17,7 +17,7 @@ const printOsEOL = () => {
 const printCpusInfo = () => {
   const cpus = os.cpus();
   const cpusInfo = cpus.map(
-    (el) => (el = { model: el.model, speed: el.speed })
+    (el) => (el = { model: el.model, speed: el.speed / 1000 + " GHz" })
   );
   console.log(cpusInfo);
 };
